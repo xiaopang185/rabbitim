@@ -16,7 +16,6 @@
 * QQ群：68046752（本人不常上QQ）。有问题或好的想法，尽量用邮件组。
 * 自动编译状态: 
     1. linux、android、mac、ios [![Build Status](https://travis-ci.org/KangLin/rabbitim.svg)](https://travis-ci.org/KangLin/rabbitim)
-     [![Circle CI](https://circleci.com/gh/KangLin/rabbitim.svg?style=svg)](https://circleci.com/gh/KangLin/rabbitim)  
     2. windows [![Build Status](https://ci.appveyor.com/api/projects/status/sknyg6fu1a9flnj3?svg=true)](https://ci.appveyor.com/project/KangLin/rabbitim)  
 * 微信公众号：rabbitim  
 [![微信公众号:rabbitim](Resource/png/qrcode.jpg "微信公众号：rabbitim")](https://github.com/KangLin/rabbitim)

@@ -14,7 +14,7 @@
 
 
 #需要设置下面变量：
-#QT_ROOT=/c/Qt/Qt5.2.1/5.2.1/mingw48_32 #QT 安装根目录,默认为:${RabbitImRoot}/ThirdLibrary/windows_mingw/qt
+#QT_ROOT=/c/Qt/Qt5.6.0_android/5.6/mingw49_32 #QT 安装根目录,默认为:${RabbitImRoot}/ThirdLibrary/windows_mingw/qt
 JOM=nmake #设置 QT make 工具 JOM
 RABBITIM_CLEAN=TRUE #编译前清理
 #RABBITIM_BUILD_STATIC="static" #设置编译静态库，注释掉，则为编译动态库

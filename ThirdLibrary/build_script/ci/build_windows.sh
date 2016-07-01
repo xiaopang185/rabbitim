@@ -26,7 +26,7 @@ export RABBITIM_USE_REPOSITORIES="FALSE"
 ./build_openssl.sh ${TARGET} ${SOURCE_DIR}/ThirdLibrary/src/openssl > /dev/null
 ./build_libcurl.sh ${TARGET} ${SOURCE_DIR}/ThirdLibrary/src/curl > /dev/null
 ./build_libvpx.sh ${TARGET} ${SOURCE_DIR}/ThirdLibrary/src/libvpx > /dev/null
-./build_libyuv.sh ${TARGET} ${SOURCE_DIR}/ThirdLibrary/src/libyuv > /dev/null
+#./build_libyuv.sh ${TARGET} ${SOURCE_DIR}/ThirdLibrary/src/libyuv > /dev/null
   
 ./build_ffmpeg.sh ${TARGET} ${SOURCE_DIR}/ThirdLibrary/src/ffmpeg > /dev/null
    
