@@ -61,11 +61,13 @@ test: off
 
 deploy:
   provider: GitHub
+  release: rabbitim-third-library-v$(appveyor_build_version)
+  description: 'rabbitim-third-library-v$(appveyor_build_version)'
+  #  #token 在这个地址产生 https://github.com/settings/tokens 用这个加密 https://ci.appveyor.com/tools/encrypt
   auth_token:
-    secure: 8f49433bc06c559fc88198a0d2de15cbb3b6bd60
-  artifact: RabbitIm-*v$(appveyor_build_version)
+    secure: ZwS9M6Ide+GfM4kLxJ5b9tRoB1wn/56nZRCAIP6Z7s3+YwcE+cx0Dv0d6X82lidF
   draft: false
-  prerelease: true
+  prerelease: false
   on:
     branch: master                 # release from master branch only
-    appveyor_repo_tag: true        # deploy on tag push only
+    #appveyor_repo_tag: true        # deploy on tag push only
