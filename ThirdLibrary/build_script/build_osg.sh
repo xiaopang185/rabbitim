@@ -40,21 +40,21 @@ CUR_DIR=`pwd`
 
 #下载源码:
 if [ ! -d ${RABBITIM_BUILD_SOURCE_CODE} ]; then
-    OSG_VERSION=2.0
+    OSG_VERSION=OpenSceneGraph-3.5.3
     if [ "TRUE" = "${RABBITIM_USE_REPOSITORIES}" ]; then
-        echo "git clone -q --branch=${OSG_VERSION} https://github.com/openscenegraph/osg.git ${RABBITIM_BUILD_SOURCE_CODE}"
-        git clone -q --branch=$OSG_VERSION https://github.com/openscenegraph/osg.git ${RABBITIM_BUILD_SOURCE_CODE}
+        echo "git clone -q --branch=${OSG_VERSION} https://github.com/openscenegraph/OpenSceneGraph.git ${RABBITIM_BUILD_SOURCE_CODE}"
+        git clone -q --branch=$OSG_VERSION https://github.com/openscenegraph/OpenSceneGraph.git ${RABBITIM_BUILD_SOURCE_CODE}
     else
-        echo "wget -q https://github.com/openscenegraph/osg/archive/${OSG_VERSION}.zip"
+        echo "wget -q https://github.com/openscenegraph/OpenSceneGraph/archive/${OSG_VERSION}.zip"
         mkdir -p ${RABBITIM_BUILD_SOURCE_CODE}
         cd ${RABBITIM_BUILD_SOURCE_CODE}
-        wget -c -q wget https://github.com/openscenegraph/osg/archive/${OSG_VERSION}.zip
+        wget -q https://github.com/openscenegraph/OpenSceneGraph/archive/${OSG_VERSION}.zip
         unzip -q ${OSG_VERSION}.zip
-        mv osg-${OSG_VERSION} ..
+        mv OpenSceneGraph-${OSG_VERSION} ..
         rm -fr *
         cd ..
         rm -fr ${RABBITIM_BUILD_SOURCE_CODE}
-        mv -f osg-${OSG_VERSION} ${RABBITIM_BUILD_SOURCE_CODE}
+        mv -f OpenSceneGraph-${OSG_VERSION} ${RABBITIM_BUILD_SOURCE_CODE}
     fi
 fi
 

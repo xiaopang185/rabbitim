@@ -33,41 +33,32 @@ fi
 if [ -n "$2" ]; then
     RABBITIM_BUILD_SOURCE_CODE=$2
 else
-    RABBITIM_BUILD_SOURCE_CODE=${RABBITIM_BUILD_PREFIX}/../src/gdal
+    RABBITIM_BUILD_SOURCE_CODE=${RABBITIM_BUILD_PREFIX}/../src/tiff
 fi
 
 CUR_DIR=`pwd`
 
 #下载源码:
 if [ ! -d ${RABBITIM_BUILD_SOURCE_CODE} ]; then
-    GDAL_VERSION=2.1
-    if [ "TRUE" = "${RABBITIM_USE_REPOSITORIES}" ]; then
-        echo "git clone -q  --branch=${GDAL_VERSION} https://github.com/OSGeo/gdal ${RABBITIM_BUILD_SOURCE_CODE}"
-        git clone -q  --branch=$GDAL_VERSION https://github.com/OSGeo/gdal ${RABBITIM_BUILD_SOURCE_CODE}
-    else
-        echo "wget -q  https://github.com/OSGeo/gdal/archive/${GDAL_VERSION}.zip"
-        mkdir -p ${RABBITIM_BUILD_SOURCE_CODE}
-        cd ${RABBITIM_BUILD_SOURCE_CODE}
-        wget -q -c https://github.com/OSGeo/gdal/archive/${GDAL_VERSION}.zip
-        unzip ${GDAL_VERSION}.zip
-        mv gdal-${GDAL_VERSION} ..
-        rm -fr *
-        cd ..
-        rm -fr ${RABBITIM_BUILD_SOURCE_CODE}
-        mv -f gdal-${GDAL_VERSION} ${RABBITIM_BUILD_SOURCE_CODE}
-    fi
+    TIFF_VERSION=4.0.6
+    echo "wget -q ftp://ftp.remotesensing.org/pub/libtiff/tiff-${TIFF_VERSION}.zip"
+    mkdir -p ${RABBITIM_BUILD_SOURCE_CODE}
+    cd ${RABBITIM_BUILD_SOURCE_CODE}
+    wget -q ftp://ftp.remotesensing.org/pub/libtiff/tiff-${TIFF_VERSION}.zip
+    unzip tiff-${TIFF_VERSION}.zip
+    mv tiff-${TIFF_VERSION} ..
+    rm -fr *
+    cd ..
+    rm -fr ${RABBITIM_BUILD_SOURCE_CODE}
+    mv -f tiff-${TIFF_VERSION} ${RABBITIM_BUILD_SOURCE_CODE}
 fi
 
-RABBITIM_BUILD_SOURCE_CODE=${RABBITIM_BUILD_SOURCE_CODE}/gdal
 cd ${RABBITIM_BUILD_SOURCE_CODE}
 
-if [ "$RABBITIM_CLEAN" ]; then
-    if [ -d "../.git" ]; then
-        echo "git clean -xdf"
-        git clean -xdf
-    else
-        make clean
-    fi
+if [ "$RABBITIM_CLEAN" = "TRUE" -a "${RABBITIM_BUILD_TARGERT}" = "windows_msvc" ]; then
+    nmake Makefile.vc clean
+else
+    make clean
 fi
 
 echo ""
@@ -99,23 +90,18 @@ case ${RABBITIM_BUILD_TARGERT} in
         export AS=${RABBITIM_BUILD_CROSS_PREFIX}as
         export STRIP=${RABBITIM_BUILD_CROSS_PREFIX}strip
         export NM=${RABBITIM_BUILD_CROSS_PREFIX}nm
-        LIBS="-lstdc++"
         CONFIG_PARA="CXX=${RABBITIM_BUILD_CROSS_PREFIX}g++ LD=${RABBITIM_BUILD_CROSS_PREFIX}ld"
         CONFIG_PARA="${CONFIG_PARA} --disable-shared -enable-static --host=$RABBITIM_BUILD_CROSS_HOST"
         CONFIG_PARA="${CONFIG_PARA} --with-sysroot=${RABBITIM_BUILD_CROSS_SYSROOT}"
-        CONFIG_PARA="$CONFIG_PARA --with-curl=$RABBITIM_BUILD_PREFIX/bin"
         CFLAGS="-march=armv7-a --sysroot=${RABBITIM_BUILD_CROSS_SYSROOT} "
         CXXFLAGS="-march=armv7-a --sysroot=${RABBITIM_BUILD_CROSS_SYSROOT} ${RABBITIM_BUILD_CROSS_STL_INCLUDE_FLAGS}"
         CPPFLAGS=${CXXFLAGS}
-        if [ -n "${RABBITIM_BUILD_CROSS_STL_LIBS}" ]; then
-            LDFLAGS="-L${RABBITIM_BUILD_CROSS_STL_LIBS}"
-        fi
         ;;
     unix)
         ;;
     windows_msvc)
-        nmake makefile.vc
-        nmake makefile.vc GDAL_HOME="$RABBITIM_BUILD_PREFIX" devinstall
+        nmake Makefile.vc
+        nmake Makefile.vc install
         cd $CUR_DIR
         exit 0
         ;;

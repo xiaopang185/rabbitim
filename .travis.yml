@@ -35,7 +35,7 @@ env:
      #- BUILD_TARGERT="unix" QT_VERSION_DIR=5.2 QT_VERSION=5.2.1
 
      - BUILD_TARGERT="android" QT_VERSION_DIR=5.7 QT_VERSION=5.7.0
-     - BUILD_TARGERT="android" QT_VERSION_DIR=5.6 QT_VERSION=5.6.0  
+     #- BUILD_TARGERT="android" QT_VERSION_DIR=5.6 QT_VERSION=5.6.0  
      #- BUILD_TARGERT="android" QT_VERSION_DIR=5.5 QT_VERSION=5.5.1
 
 before_install:
@@ -77,6 +77,6 @@ deploy:
     - ./build_android/android-build/bin/QtApp-debug.apk
   skip_cleanup: true
   on:
-    condition: ($TRAVIS_OS_NAME = android) && ($QT_VERSION = 5.7.0)
+    condition: $TRAVIS_OS_NAME = android
     repo: KangLin/rabbitim
     tags: true
